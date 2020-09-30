@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View, TextInput, StyleSheet} from 'react-native';
 
-const TimerFormFieldItem = ({title}) => {
+const TimerFormFieldItem = ({title, value, handerInput}) => {
   return (
     <>
       <View style={styles.attributeContainer}>
@@ -14,6 +14,8 @@ const TimerFormFieldItem = ({title}) => {
           style={styles.textInput}
           underlineColorAndroid="transparent"
           defaultValue={''}
+          value={value}
+          onChangeText={handerInput}
         />
       </View>
     </>

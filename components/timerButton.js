@@ -1,7 +1,14 @@
 import React from 'react';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native';
 
-const TimerButton = ({styleButton, small, onPress, title, styleText}) => {
+const TimerButton = ({
+  styleButton,
+  small,
+  onPress,
+  title,
+  styleText,
+  textStyle,
+}) => {
   return (
     <TouchableOpacity
       activeOpacity={0.5}
@@ -12,6 +19,7 @@ const TimerButton = ({styleButton, small, onPress, title, styleText}) => {
           styles.buttonText,
           small ? styles.styleSmall : styles.styleLarge,
           styleText,
+          textStyle,
         ]}>
         {title}
       </Text>
