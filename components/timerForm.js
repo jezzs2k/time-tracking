@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 
 import TimerFormFieldItem from './timerFormFieldItem';
 import TimerButton from './timerButton';
 
-const TimerForm = ({id}) => {
+const TimerForm = ({id, title, project, onFormClose, onFormSubmit}) => {
   const submitText = id ? 'Update' : 'Create';
   const [state, setState] = useState({
     title: '',
@@ -18,6 +18,22 @@ const TimerForm = ({id}) => {
   const handerChangeProject = (text) => {
     setState((state) => ({...state, project: text}));
   };
+
+  const handerSubmit = () => {
+    const {title, project} = state;
+    onFormSubmit({id, title , project});
+  }
+
+  useEffect(() => {
+    if (title) {
+      setState((state) => ({...state, title: title}));      
+    }
+
+    if (project) {
+      setState((state) => ({...state, project: project}));
+    }
+
+  }, [title, project])
 
   return (
     <View style={styles.formContainer}>
@@ -37,14 +53,14 @@ const TimerForm = ({id}) => {
           small={true}
           styleButton={styles.styleButtonCreate}
           textStyle={styles.textStyle}
-          onPress={() => console.log('Vu Thanh Hieu')}
+          onPress={handerSubmit}
         />
         <TimerButton
           title={'Cancel'}
           small={true}
           styleButton={styles.styleButtonCancel}
           textStyle={styles.textStyle}
-          onPress={() => console.log('Vu Thanh Hieu')}
+          onPress={() => onFormClose(false)}
         />
       </View>
     </View>

@@ -1,31 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Text, StyleSheet, View} from 'react-native';
+import {millisecondsToHuman} from '../utils/millisecondsToHuman';
 
 import TimerButton from './timerButton';
 
-const Timer = ({title, project}) => {
+const Timer = ({id, title, project, elapsed, isRunning, onEditPress, onRemovePress, onStartPress, onStopPress}) => {  
+  const timeCounter = millisecondsToHuman(elapsed);
+
+  const handleStartPress = () => {  
+    onStartPress(id);
+  };
+
+  const handleStopPress = () => {
+    onStopPress(id);
+  };
+
+  const handlerRemoveTimer = () => {
+    onRemovePress(id);
+  }
+
+  const renderButtonAction = () => {
+    if(isRunning){
+      return <TimerButton
+              title={'Stop'}
+              styleButton={styles.styleButtonStop}
+              styleText={styles.styleTextStop}
+              onPress={handleStopPress}
+             /> 
+    }
+
+    return <TimerButton
+            title={'Start'}
+            styleButton={styles.styleButtonStart}
+            styleText={styles.styleTextStart}
+            onPress={handleStartPress}
+           />
+}
+
   return (
     <View style={styles.timerContainer}>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.titleProject}>{project}</Text>
-      <Text style={styles.elapsed}>11:44:60</Text>
+      <Text style={styles.elapsed}>{timeCounter}</Text>
       <View style={styles.buttonGroup}>
         <TimerButton
           title={'Edit'}
           styleButton={{...styles.buttonStyleNomal, marginRight: 8}}
           styleText={styles.textStyleNomal}
+          onPress={onEditPress}
         />
         <TimerButton
           title={'Remove'}
           styleButton={{...styles.buttonStyleNomal, marginLeft: 8}}
           styleText={styles.textStyleNomal}
+          onPress={handlerRemoveTimer}
         />
       </View>
-      <TimerButton
-        title={'Start'}
-        styleButton={styles.styleButtonStart}
-        styleText={styles.styleTextStart}
-      />
+      {renderButtonAction()}  
     </View>
   );
 };
@@ -70,6 +101,12 @@ const styles = StyleSheet.create({
   },
   styleTextStart: {
     color: '#21BA45',
+  },
+  styleButtonStop: {
+    borderColor: '#DB2828',
+  },
+  styleTextStop: {
+    color: '#DB2828',
   },
 });
 
