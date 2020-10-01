@@ -9,8 +9,8 @@ const ToggleableTimerForm = ({onFormSumit}) => {
 
   const handerFormSubmit = (timer) => {
     onFormSumit(timer);
-    setOpen(false);    
-  }
+    setOpen(false);
+  };
 
   return (
     <View style={[styles.container, isOpen && styles.buttonPadding]}>
