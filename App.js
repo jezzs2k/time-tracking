@@ -27,7 +27,7 @@ const App = () => {
       title: 'Bake squash',
       project: 'Kitchen Chores',
       id: uuidv4(),
-      elapsed: 1986999999,
+      elapsed: 10367999000,
       isRunning: false,
     },
   ]);
